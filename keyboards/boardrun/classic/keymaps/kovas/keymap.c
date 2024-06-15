@@ -36,6 +36,7 @@
 #define _LCBR      LSFT(KC_LBRC)
 #define _RCBR      LSFT(KC_RBRC)
 #define _COLON     LSFT(KC_SCLN)
+#define _ALTF4     LALT(KC_F4)
 
 // Layer shorthand
 enum layer_names {
@@ -69,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Symbol Layer
 	 * .--------------------------------------------------------------.        .--------------------------------------------------------------.
-     * |        | F1     | F2     | F3     | F4     | F5     | F11    |        | F12    | F6     | F7     | F8     | F9     | F10    | DEL    |
+     * | ALTF4  | F1     | F2     | F3     | F4     | F5     | F11    |        | F12    | F6     | F7     | F8     | F9     | F10    | DEL    |
      * |--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------|
      * |        |        |        | !      | @      | #      |        |        |        | -      | [      | ]      | +      |        |        |
      * |--------+--------+--------+--------+--------+--------+--------+        +--------+--------+--------+--------+--------+--------+--------|
@@ -81,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *          '--------------------------------------------------------------------------------------------------------------------'
      */
     [_SYMBOL] = LAYOUT_classic(
-        _______,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,           KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
+        _ALTF4,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,           KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
         _______, _______, _______, _EXCL,   _AT,     _HASH,   _______,          _______, KC_MINS, KC_LBRC, KC_RBRC, _PLUS,   _______, _______,
         _______, _______, _______, _DOLLAR, _PERC,   _CAR,    _______,          _______, KC_BSPC, _LPAR,   _RPAR,   KC_DEL,  _______, _______,
         _______, _______, _______, _AMP,    _STAR,   _PIPE,   _______,          _______, _UNSC,   _LCBR,   _RCBR,   KC_EQL,  _______, _______,
