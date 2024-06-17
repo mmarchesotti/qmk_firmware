@@ -44,32 +44,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl |   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Del  | GUI  | Alt  |Lower | Space|Shift |Raise | Left | Down |  Up  |Right |
+ * | GUI  | Del  | GUI  | Alt  |Lower | Space|Shift |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
     KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
     KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
-    BACKLIT, KC_DEL,  KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_LSFT, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    KC_LGUI, KC_DEL,  KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_LSFT, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   {  |   }  |   *  | Bksp |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   {  |   }  |   &  |   |  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |   1  |   2  |   3  |   4  |   5  |   =  | Bksp |   (  |   )  |   -  |  |   |
+ * | Del  |   1  |   2  |   3  |   4  |   5  |   =  |   (  |   )  | *    |   -  | Del  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |   6  |   7  |   8  |   9  |   0  |   `  | _    |   [  |   ]  |   +  |      |
+ * |      |   6  |   7  |   8  |   9  |   0  |   `  |   [  |   ]  | _    |   +  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
-    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,  KC_LCBR,  KC_RCBR, KC_ASTR, KC_BSPC,
-    KC_DEL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_EQL,  KC_BSPC,  KC_LPRN,  KC_RPRN, KC_MINS, KC_PIPE,
-    _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,  KC_UNDS,  KC_LBRC,  KC_RBRC, KC_PLUS, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______,  KC_HOME,  KC_PGDN, KC_PGUP, KC_END
+    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_LCBR,  KC_RCBR, KC_AMPR,  KC_PIPE, KC_BSPC,
+    KC_DEL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_EQL,  KC_LPRN,  KC_RPRN, KC_ASTR,  KC_MINS, KC_DEL,
+    _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_GRV,  KC_LBRC,  KC_RBRC, KC_UNDS,  KC_PLUS, _______,
+    _______, _______, _______, _______, _______, _______, _______, KC_HOME,  KC_PGDN, _______,  KC_PGUP, KC_END
 ),
 
 /* Raise
