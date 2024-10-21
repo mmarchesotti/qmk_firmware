@@ -10,10 +10,17 @@ enum kaly_layers {
   _ADJUST
 };
 
-#define LOWER OSL(_LOWER)
-#define RAISE OSL(_RAISE)
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
 #define SFT_MIN MT(MOD_LSFT, KC_MINS)
+
+const uint16_t PROGMEM gui_combo[] = {KC_V, KC_LCTL, COMBO_END};
+const uint16_t PROGMEM gui_combo2[] = {KC_SPC, LOWER, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(gui_combo, KC_LGUI),
+    COMBO(gui_combo2, KC_LGUI),
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
@@ -34,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_DEL,  KC_BSPC,
         KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                        KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
         KC_LALT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                        KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-                                            KC_LCTL, KC_SPC, LOWER,       RAISE,  SFT_MIN, KC_LGUI
+                                            KC_LCTL, LOWER, KC_SPC,       SFT_MIN, RAISE, KC_LGUI
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
@@ -54,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC, KC_DEL,  KC_3, KC_2, KC_1, S(KC_1),                    S(KC_7),   S(KC_LBRC), S(KC_RBRC), KC_EQL,     S(KC_2),    KC_GRV,
         KC_BSLS, KC_0,    KC_6, KC_5, KC_4, S(KC_8),                    KC_QUOT,   S(KC_9),    S(KC_0),    S(KC_SCLN), S(KC_3),    S(KC_GRV),
         S(KC_6), S(KC_4), KC_9, KC_8, KC_7, S(KC_5),                    S(KC_EQL), KC_LBRC,    KC_RBRC,    KC_SCLN,    S(KC_MINS), KC_TAB,
-                                  _______, KC_LGUI, ADJUST,    ADJUST,  _______, _______
+                                  _______, ADJUST, KC_LGUI,    _______, ADJUST,  _______
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
@@ -74,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, DM_REC1, S(KC_6),   DM_PLY1, KC_ENT,  KC_GRV,                     C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
         _______, DM_RSTP, KC_TAB,    KC_ESC,  KC_BSPC, S(KC_BSLS),                 KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
         _______, DM_REC2, C(KC_TAB), DM_PLY2, KC_DEL,  S(KC_GRV),                  C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
-                                            _______, _______, ADJUST,     ADJUST,  _______, _______
+                                            _______, ADJUST, _______,     _______, ADJUST,  _______
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
@@ -94,6 +101,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_MS_ACCEL0, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,                       KC_SYSTEM_SLEEP, KC_F7, KC_F8, KC_F9, KC_F10, KC_AUDIO_MUTE,
         _______, KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,                     QK_BOOTLOADER,   KC_F4, KC_F5, KC_F6, KC_F11, KC_AUDIO_VOL_UP,
         _______, KC_MS_ACCEL2, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,                        QK_REBOOT,       KC_F1, KC_F2, KC_F3, KC_F12, KC_AUDIO_VOL_DOWN,
-                                            _______, _______, ADJUST,     ADJUST,  _______, _______
+                                            _______, _______, _______,     _______,  _______, _______
     ),
 };
