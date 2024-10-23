@@ -10,16 +10,16 @@ enum kaly_layers {
   _ADJUST
 };
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
+#define LOWER LT(_LOWER, KC_TAB)
+#define RAISE LT(_RAISE, KC_ENT)
 #define ADJUST MO(_ADJUST)
 #define SFT_MIN MT(MOD_LSFT, KC_MINS)
 
-const uint16_t PROGMEM gui_combo[] = {KC_V, KC_LCTL, COMBO_END};
-const uint16_t PROGMEM gui_combo2[] = {KC_SPC, LOWER, COMBO_END};
+const uint16_t PROGMEM esc_combo[] = {SFT_MIN, RAISE, COMBO_END};
+const uint16_t PROGMEM gui_combo[] = {KC_SPC, LOWER, COMBO_END};
 combo_t key_combos[] = {
+    COMBO(esc_combo, KC_ESC),
     COMBO(gui_combo, KC_LGUI),
-    COMBO(gui_combo2, KC_LGUI),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -33,8 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │Ctl├───┐           ┌───┤Gui│
-      *               └───┤Spc├───┐   ┌───┤S- ├───┘
-      *                   └───┤Low│   │Rai├───┘
+      *               └───┤Low├───┐   ┌───┤Rai├───┘
+      *                   └───┤Spc│   │S- ├───┘
       *                       └───┘   └───┘
       */
     [_BASE] = LAYOUT_split_3x6_3(
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
-      *               └───┤Gui├───┐   ┌───┤   ├───┘
+      *               └───┤   ├───┐   ┌───┤   ├───┘
       *                   └───┤   │   │   ├───┘
       *                       └───┘   └───┘
       */
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC, KC_DEL,  KC_3, KC_2, KC_1, S(KC_1),                    S(KC_7),   S(KC_LBRC), S(KC_RBRC), KC_EQL,     S(KC_2),    KC_GRV,
         KC_BSLS, KC_0,    KC_6, KC_5, KC_4, S(KC_8),                    KC_QUOT,   S(KC_9),    S(KC_0),    S(KC_SCLN), S(KC_3),    S(KC_GRV),
         S(KC_6), S(KC_4), KC_9, KC_8, KC_7, S(KC_5),                    S(KC_EQL), KC_LBRC,    KC_RBRC,    KC_SCLN,    S(KC_MINS), KC_TAB,
-                                  _______, ADJUST, KC_LGUI,    _______, ADJUST,  _______
+                                  _______, ADJUST, _______,    _______, ADJUST,  _______
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
