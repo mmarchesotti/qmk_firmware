@@ -23,7 +23,7 @@ combo_t key_combos[] = {
     COMBO(left_outer_thumb_combo, LOWER),
     COMBO(left_inner_thumb_combo, RAISE),
     COMBO(right_inner_thumb_combo, ADJUST),
-    COMBO(right_outer_thumb_combo, ADJUST),
+    COMBO(right_outer_thumb_combo, RAISE),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
