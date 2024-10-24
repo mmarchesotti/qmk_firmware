@@ -10,16 +10,20 @@ enum kaly_layers {
   _ADJUST
 };
 
-#define LOWER LT(_LOWER, KC_TAB)
-#define RAISE LT(_RAISE, KC_ENT)
+#define LOWER LT(_LOWER, KC_ENT)
+#define RAISE LT(_RAISE, KC_ESC)
 #define ADJUST MO(_ADJUST)
 #define SFT_MIN MT(MOD_LSFT, KC_MINS)
 
-const uint16_t PROGMEM esc_combo[] = {SFT_MIN, RAISE, COMBO_END};
-const uint16_t PROGMEM gui_combo[] = {KC_SPC, LOWER, COMBO_END};
+const uint16_t PROGMEM left_outer_thumb_combo[] = {KC_LCTL, KC_SPC, COMBO_END};
+const uint16_t PROGMEM left_inner_thumb_combo[] = {KC_LGUI, KC_LCTL, COMBO_END};
+const uint16_t PROGMEM right_outer_thumb_combo[] = {LOWER, RAISE, COMBO_END};
+const uint16_t PROGMEM right_inner_thumb_combo[] = {SFT_MIN, LOWER, COMBO_END};
 combo_t key_combos[] = {
-    COMBO(esc_combo, KC_ESC),
-    COMBO(gui_combo, KC_LGUI),
+    COMBO(left_outer_thumb_combo, LOWER),
+    COMBO(left_inner_thumb_combo, RAISE),
+    COMBO(right_inner_thumb_combo, ADJUST),
+    COMBO(right_outer_thumb_combo, ADJUST),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -32,8 +36,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * │Alt│ Z │ X │ C │ D │ V │       │ K │ H │ , │ . │ / │Ent│
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
-      *               │Ctl├───┐           ┌───┤Gui│
-      *               └───┤Low├───┐   ┌───┤Rai├───┘
+      *               │Mod├───┐           ┌───┤Rai│
+      *               └───┤Ctl├───┐   ┌───┤Low├───┘
       *                   └───┤Spc│   │S- ├───┘
       *                       └───┘   └───┘
       */
@@ -41,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                        KC_J,    KC_L,    KC_U,    KC_Y,    KC_DEL,  KC_BSPC,
         KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                        KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
         KC_LALT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                        KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-                                            KC_LCTL, LOWER, KC_SPC,       SFT_MIN, RAISE, KC_LGUI
+                                            KC_LGUI, KC_LCTL, KC_SPC,       SFT_MIN, LOWER, RAISE
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
@@ -52,22 +56,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * │ ^ │ $ │ 9 │ 8 │ 7 │ % │       │ + │ [ │ ] │ ; │ _ │Tab│
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
-      *               │   ├───┐           ┌───┤   │
-      *               └───┤   ├───┐   ┌───┤   ├───┘
-      *                   └───┤   │   │   ├───┘
+      *               │Del├───┐           ┌───┤   │
+      *               └───┤CBs├───┐   ┌───┤   ├───┘
+      *                   └───┤Bsp│   │   ├───┘
       *                       └───┘   └───┘
       */
     [_LOWER] = LAYOUT_split_3x6_3(
         KC_BSPC, KC_DEL,  KC_3, KC_2, KC_1, S(KC_1),                    S(KC_7),   S(KC_LBRC), S(KC_RBRC), KC_EQL,     S(KC_2),    KC_GRV,
         KC_BSLS, KC_0,    KC_6, KC_5, KC_4, S(KC_8),                    KC_QUOT,   S(KC_9),    S(KC_0),    S(KC_SCLN), S(KC_3),    S(KC_GRV),
         S(KC_6), S(KC_4), KC_9, KC_8, KC_7, S(KC_5),                    S(KC_EQL), KC_LBRC,    KC_RBRC,    KC_SCLN,    S(KC_MINS), KC_TAB,
-                                  _______, ADJUST, _______,    _______, ADJUST,  _______
+                                  KC_DEL, C(KC_BSPC), KC_BSPC,    _______, _______,  _______
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │   │RM1│ ^ │PM1│Ent│ ` │       │CUp│PgD│Up │PgU│CDe│CBs│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │RST│Tab│Esc│Bsp│ | │       │Hom│Lft│Dwn│Rgt│End│Ins│
+      * │   │RST│Tab│Esc│Tab│ | │       │Hom│Lft│Dwn│Rgt│End│Ins│
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │   │RM2│CTb│PM2│Del│ ~ │       │CDn│CLf│CBs│CRt│Ent│PSn│
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
@@ -78,10 +82,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                       └───┘   └───┘
       */
     [_RAISE] = LAYOUT_split_3x6_3(
-        _______, DM_REC1, S(KC_6),   DM_PLY1, KC_ENT,  KC_GRV,                     C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
-        _______, DM_RSTP, KC_TAB,    KC_ESC,  KC_BSPC, S(KC_BSLS),                 KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
-        _______, DM_REC2, C(KC_TAB), DM_PLY2, KC_DEL,  S(KC_GRV),                  C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
-                                            _______, ADJUST, _______,     _______, ADJUST,  _______
+        _______, DM_REC1, S(KC_6),   DM_PLY1, KC_ENT, KC_GRV,                     C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
+        _______, DM_RSTP, KC_TAB,    KC_ESC,  KC_TAB, S(KC_BSLS),                 KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
+        _______, DM_REC2, C(KC_TAB), DM_PLY2, KC_DEL, S(KC_GRV),                  C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
+                                            KC_LGUI, KC_LCTL, KC_SPC,     _______, _______,  _______
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
