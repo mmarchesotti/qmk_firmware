@@ -17,8 +17,8 @@ enum kaly_layers {
 
 const uint16_t PROGMEM left_outer_thumb_combo[] = {KC_LCTL, KC_SPC, COMBO_END};
 const uint16_t PROGMEM left_inner_thumb_combo[] = {KC_LGUI, KC_LCTL, COMBO_END};
-const uint16_t PROGMEM right_outer_thumb_combo[] = {LOWER, RAISE, COMBO_END};
-const uint16_t PROGMEM right_inner_thumb_combo[] = {SFT_MIN, LOWER, COMBO_END};
+const uint16_t PROGMEM right_inner_thumb_combo[] = {LOWER, RAISE, COMBO_END};
+const uint16_t PROGMEM right_outer_thumb_combo[] = {SFT_MIN, LOWER, COMBO_END};
 combo_t key_combos[] = {
     COMBO(left_outer_thumb_combo, LOWER),
     COMBO(left_inner_thumb_combo, RAISE),
