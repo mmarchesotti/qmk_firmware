@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │Bsp│Del│ 3 │ 2 │ 1 │ ! │       │ & │ { │ } │ = │ @ │ ` │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │ \ │ 0 │ 6 │ 5 │ 4 │ * │       │ ' │ ( │ ) │ : │ # │ ~ │
+      * │ \ │ 0 │ 6 │ 5 │ 4 │ * │       │ # │ ( │ ) │ : │TOR│ ~ │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
       * │ ^ │ $ │ 9 │ 8 │ 7 │ % │       │ + │ [ │ ] │ ; │ _ │Tab│
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       */
     [_LOWER] = LAYOUT_split_3x6_3(
         KC_BSPC, KC_DEL,  KC_3, KC_2, KC_1, S(KC_1),                    S(KC_7),   S(KC_LBRC), S(KC_RBRC), KC_EQL,     S(KC_2),    KC_GRV,
-        KC_BSLS, KC_0,    KC_6, KC_5, KC_4, S(KC_8),                    KC_QUOT,   S(KC_9),    S(KC_0),    S(KC_SCLN), TO(_RAISE), S(KC_GRV), // S(KC_3),    S(KC_GRV),
+        KC_BSLS, KC_0,    KC_6, KC_5, KC_4, S(KC_8),                    S(KC_3),   S(KC_9),    S(KC_0),    S(KC_SCLN), TO(_RAISE), S(KC_GRV),
         S(KC_6), S(KC_4), KC_9, KC_8, KC_7, S(KC_5),                    S(KC_EQL), KC_LBRC,    KC_RBRC,    KC_SCLN,    S(KC_MINS), KC_TAB,
                                   KC_DEL, C(KC_BSPC), KC_BSPC,    _______, _______,  _______
     ),
