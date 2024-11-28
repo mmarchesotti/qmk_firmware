@@ -17,6 +17,7 @@ enum kaly_layers {
 // This is useful if I want to toggle to a layer while in the _LOWER layer,
 // then have the toggle undone when I release the lower key.
 // Taken from https://www.reddit.com/r/olkb/comments/1f6x99q/tap_into_a_layer_from_another_layer_and_exit_by/
+bool another_key_pressed = false;
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     static uint16_t timer;
     switch (keycode) {
@@ -28,10 +29,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             layer_clear();
             // Manually implement layer tap; with this macro it breaks as
             // defined above.
-            if (timer_elapsed(timer) < TAP_TIME_LOWER_LT)
+            if (timer_elapsed(timer) < TAP_TIME_LOWER_LT && !another_key_pressed)
               tap_code16(KC_ENT);
           }
+          another_key_pressed = false;
           return false;
+      default:
+          another_key_pressed = true;
     }
   return true;
 }
@@ -76,9 +80,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │Bsp│Del│ 3 │ 2 │ 1 │ ! │       │ & │ { │ } │ = │ @ │ ` │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │ \ │ 0 │ 6 │ 5 │ 4 │ * │       │ # │ ( │ ) │ : │TOR│ ~ │
+      * │ \ │ 0 │ 6 │ 5 │ 4 │ * │       │ # │ ( │ ) │ : │TOR│ | │
       * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │ ^ │ $ │ 9 │ 8 │ 7 │ % │       │ + │ [ │ ] │ ; │ _ │Tab│
+      * │ ^ │ $ │ 9 │ 8 │ 7 │ % │       │ + │ [ │ ] │ ; │ _ │ ~ │
       * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │Del├───┐           ┌───┤   │
@@ -88,18 +92,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       */
     [_LOWER] = LAYOUT_split_3x6_3(
         KC_BSPC, KC_DEL,  KC_3, KC_2, KC_1, S(KC_1),                    S(KC_7),   S(KC_LBRC), S(KC_RBRC), KC_EQL,     S(KC_2),    KC_GRV,
-        KC_BSLS, KC_0,    KC_6, KC_5, KC_4, S(KC_8),                    S(KC_3),   S(KC_9),    S(KC_0),    S(KC_SCLN), TO(_RAISE), S(KC_GRV),
-        S(KC_6), S(KC_4), KC_9, KC_8, KC_7, S(KC_5),                    S(KC_EQL), KC_LBRC,    KC_RBRC,    KC_SCLN,    S(KC_MINS), KC_TAB,
+        KC_BSLS, KC_0,    KC_6, KC_5, KC_4, S(KC_8),                    S(KC_3),   S(KC_9),    S(KC_0),    S(KC_SCLN), TO(_RAISE), S(KC_BSLS),
+        S(KC_6), S(KC_4), KC_9, KC_8, KC_7, S(KC_5),                    S(KC_EQL), KC_LBRC,    KC_RBRC,    KC_SCLN,    S(KC_MINS), S(KC_GRV),
                                   KC_DEL, C(KC_BSPC), KC_BSPC,    _______, _______,  _______
     ),
      /*
-      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │RM1│ ^ │PM1│Ent│ ` │       │CUp│PgD│Up │PgU│CDe│CBs│
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │RST│Tab│Esc│Tab│ | │       │Hom│Lft│Dwn│Rgt│End│Ins│
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │RM2│CTb│PM2│Del│ ~ │       │CDn│CLf│CBs│CRt│Ent│PSn│
-      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      * ┌───┬───┬───┬───┬───┬───┐        ┌───┬───┬───┬───┬───┬───┐
+      * │   │MA0│M3 │Mup│M1 │MWU│        │CUp│PgD│Up │PgU│CDe│CBs│
+      * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
+      * │   │MA1│MLf│MDn│MRg│MWD│        │Hom│Lft│Dwn│Rgt│End│Ins│
+      * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
+      * │   │MA2│M6 │M5 │M2 │M4 │        │CDn│CLf│CBs│CRt│Ent│PSn│
+      * └───┴───┴───┴───┴───┴───┘        └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
       *               └───┤   ├───┐   ┌───┤   ├───┘
@@ -107,29 +111,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                       └───┘   └───┘
       */
     [_RAISE] = LAYOUT_split_3x6_3(
-        _______, DM_REC1, S(KC_6),   DM_PLY1, KC_ENT, KC_GRV,                     C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
-        _______, DM_RSTP, KC_TAB,    KC_ESC,  KC_TAB, S(KC_BSLS),                 KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
-        _______, DM_REC2, C(KC_TAB), DM_PLY2, KC_DEL, S(KC_GRV),                  C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
-                                            KC_LGUI, KC_LCTL, KC_SPC,     _______, _______,  _______
+        _______, KC_MS_ACCEL0, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,              C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
+        _______, KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,            KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
+        _______, KC_MS_ACCEL2, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,               C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
+                                                        _______, _______, _______,    _______, _______,  _______
     ),
      /*
-      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
-      * │   │MA0│M3 │Mup│M1 │MWU│       │Sle│F7 │F8 │F9 │F10│Mut│
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │MA1│MLf│MDn│MRg│MWD│       │Boo│F4 │F5 │F6 │F11│V+ │
-      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
-      * │   │MA2│M6 │M5 │M2 │M4 │       │Res│F1 │F2 │F3 │F12│V- │
-      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      *  ┌───┬───┬───┬───┬───┬───┐        ┌───┬───┬───┬───┬───┬───┐
+      *  │   │RM1│ ^ │PM1│Ent│ ` │        │Sle│F7 │F8 │F9 │F10│Mut│
+      *  ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
+      *  │   │RST│Tab│Esc│Tab│ | │        │Boo│F4 │F5 │F6 │F11│V+ │
+      *  ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
+      *  │   │RM2│CTb│PM2│Del│ ~ │        │Res│F1 │F2 │F3 │F12│V- │
+      *  └───┴───┴───┴───┴───┴───┘        └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
-      *               │   ├───┐           ┌───┤Alt│
-      *               └───┤   ├───┐   ┌───┤Ent├───┘
+      *               │   ├───┐           ┌───┤   │
+      *               └───┤   ├───┐   ┌───┤   ├───┘
       *                   └───┤   │   │   ├───┘
       *                       └───┘   └───┘
       */
     [_ADJUST] = LAYOUT_split_3x6_3(
-        _______, KC_MS_ACCEL0, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,                       KC_SYSTEM_SLEEP, KC_F7, KC_F8, KC_F9, KC_F10, KC_AUDIO_MUTE,
-        _______, KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,                     QK_BOOTLOADER,   KC_F4, KC_F5, KC_F6, KC_F11, KC_AUDIO_VOL_UP,
-        _______, KC_MS_ACCEL2, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,                        QK_REBOOT,       KC_F1, KC_F2, KC_F3, KC_F12, KC_AUDIO_VOL_DOWN,
-                                            _______, _______, _______,     _______,  _______, _______
+        _______, DM_REC1, S(KC_6),   DM_PLY1, KC_ENT, KC_GRV,           KC_SYSTEM_SLEEP, KC_F7, KC_F8, KC_F9, KC_F10, KC_AUDIO_MUTE,
+        _______, DM_RSTP, KC_TAB,    KC_ESC,  KC_TAB, S(KC_BSLS),       QK_BOOTLOADER,   KC_F4, KC_F5, KC_F6, KC_F11, KC_AUDIO_VOL_UP,
+        _______, DM_REC2, C(KC_TAB), DM_PLY2, KC_DEL, S(KC_GRV),        QK_REBOOT,       KC_F1, KC_F2, KC_F3, KC_F12, KC_AUDIO_VOL_DOWN,
+                                        KC_LGUI, KC_LCTL, KC_SPC,      _______,  _______, _______
     ),
 };
