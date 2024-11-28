@@ -11,6 +11,31 @@ enum kaly_layers {
 };
 
 #define LOWER LT(_LOWER, KC_ENT)
+
+#define TAP_TIME_LOWER_LT 400  //configure max tap time, 400ms here
+// This forces reversion to the base layer when the LOWER key is released.
+// This is useful if I want to toggle to a layer while in the _LOWER layer,
+// then have the toggle undone when I release the lower key.
+// Taken from https://www.reddit.com/r/olkb/comments/1f6x99q/tap_into_a_layer_from_another_layer_and_exit_by/
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    static uint16_t timer;
+    switch (keycode) {
+      case LOWER:
+          if (record->event.pressed) {
+            timer = timer_read();
+            layer_on(_LOWER);
+          } else {
+            layer_clear();
+            // Manually implement layer tap; with this macro it breaks as
+            // defined above.
+            if (timer_elapsed(timer) < TAP_TIME_LOWER_LT)
+              tap_code16(KC_ENT);
+          }
+          return false;
+    }
+  return true;
+}
+
 #define RAISE LT(_RAISE, KC_ESC)
 #define ADJUST MO(_ADJUST)
 #define SFT_MIN MT(MOD_LSFT, KC_MINS)
@@ -63,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       */
     [_LOWER] = LAYOUT_split_3x6_3(
         KC_BSPC, KC_DEL,  KC_3, KC_2, KC_1, S(KC_1),                    S(KC_7),   S(KC_LBRC), S(KC_RBRC), KC_EQL,     S(KC_2),    KC_GRV,
-        KC_BSLS, KC_0,    KC_6, KC_5, KC_4, S(KC_8),                    KC_QUOT,   S(KC_9),    S(KC_0),    S(KC_SCLN), S(KC_3),    S(KC_GRV),
+        KC_BSLS, KC_0,    KC_6, KC_5, KC_4, S(KC_8),                    KC_QUOT,   S(KC_9),    S(KC_0),    S(KC_SCLN), TO(_RAISE), S(KC_GRV), // S(KC_3),    S(KC_GRV),
         S(KC_6), S(KC_4), KC_9, KC_8, KC_7, S(KC_5),                    S(KC_EQL), KC_LBRC,    KC_RBRC,    KC_SCLN,    S(KC_MINS), KC_TAB,
                                   KC_DEL, C(KC_BSPC), KC_BSPC,    _______, _______,  _______
     ),
