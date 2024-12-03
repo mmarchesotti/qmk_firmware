@@ -98,23 +98,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐        ┌───┬───┬───┬───┬───┬───┐
-      * │   │MA0│M3 │Mup│M1 │MWU│        │CUp│PgD│Up │PgU│CDe│CBs│
+      * │   │   │M3 │Mup│M1 │MWU│        │CUp│PgD│Up │PgU│CDe│CBs│
       * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
-      * │   │MA1│MLf│MDn│MRg│MWD│        │Hom│Lft│Dwn│Rgt│End│Ins│
+      * │   │   │MLf│MDn│MRg│MWD│        │Hom│Lft│Dwn│Rgt│End│Ins│
       * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
-      * │   │MA2│M6 │M5 │M2 │M4 │        │CDn│CLf│CBs│CRt│Ent│PSn│
+      * │   │   │M6 │M5 │M2 │M4 │        │CDn│CLf│CBs│CRt│Ent│PSn│
       * └───┴───┴───┴───┴───┴───┘        └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
-      *               │   ├───┐           ┌───┤   │
-      *               └───┤   ├───┐   ┌───┤   ├───┘
-      *                   └───┤   │   │   ├───┘
+      *               │MA2├───┐           ┌───┤   │
+      *               └───┤MA1├───┐   ┌───┤   ├───┘
+      *                   └───┤MA0│   │   ├───┘
       *                       └───┘   └───┘
       */
     [_RAISE] = LAYOUT_split_3x6_3(
-        _______, KC_MS_ACCEL0, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,              C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
-        _______, KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,            KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
-        _______, KC_MS_ACCEL2, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,               C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
-                                                        _______, _______, _______,    _______, _______,  _______
+        _______, _______, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,              C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
+        _______, _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,            KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
+        _______, _______, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,               C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
+                                        KC_MS_ACCEL2, KC_MS_ACCEL1, KC_MS_ACCEL0,    _______, _______,  _______
     ),
      /*
       *  ┌───┬───┬───┬───┬───┬───┐        ┌───┬───┬───┬───┬───┬───┐
