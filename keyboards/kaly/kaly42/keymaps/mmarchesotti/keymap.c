@@ -7,7 +7,8 @@ enum kaly_layers {
   _BASE,
   _LOWER,
   _RAISE,
-  _ADJUST
+  _ADJUST,
+  _GAME
 };
 
 #define LOWER MO(_LOWER)
@@ -91,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                       └───┘   └───┘
       */
     [_RAISE] = LAYOUT_split_3x6_3(
-        _______, _______, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,              C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
+        TO(_GAME), _______, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,              C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
         _______, _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,            KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
         _______, _______, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,               C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
                                         KC_MS_ACCEL2, KC_MS_ACCEL1, KC_MS_ACCEL0,    _______, _______,  _______
@@ -115,5 +116,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPLY, DM_RSTP, KC_TAB,    KC_ESC,  KC_TAB, S(KC_BSLS),       QK_BOOTLOADER,   KC_F4, KC_F5, KC_F6, KC_F11, KC_AUDIO_VOL_UP,
         KC_MNXT, DM_REC2, C(KC_TAB), DM_PLY2, KC_DEL, S(KC_GRV),        QK_REBOOT,       KC_F1, KC_F2, KC_F3, KC_F12, KC_AUDIO_VOL_DOWN,
                                         KC_LGUI, KC_LCTL, KC_SPC,      _______,  _______, _______
+    ),
+    /*
+      * GAMING LAYER (QWERTY for WASD)
+      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
+      * │Tab│ Q │ W │ E │ R │ T │       │ Y │ U │ I │ O │ P │Bsp│
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │Esc│ A │ S │ D │ F │ G │       │ H │ J │ K │ L │ ; │ ' │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │Sft│ Z │ X │ C │ V │ B │       │ N │ M │ , │ . │ / │Ent│
+      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      *               ┌───┐                   ┌───┐
+      *               │Alt├───┐           ┌───┤EXT│
+      *               └───┤Ctl├───┐   ┌───┤   ├───┘
+      *                   └───┤Spc│   │   ├───┘
+      *                       └───┘   └───┘
+      */
+    [_GAME] = LAYOUT_split_3x6_3(
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+        KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+                                           KC_LALT, KC_LCTL, KC_SPC,       _______, TO(_BASE), _______
     ),
 };
