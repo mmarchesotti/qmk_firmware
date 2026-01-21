@@ -80,11 +80,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐        ┌───┬───┬───┬───┬───┬───┐
-      * │GAM│   │M3 │Mup│M1 │MWU│        │CUp│PgD│Up │PgU│CDe│CBs│
+      * │Mut│F10│ F9│ F8│ F7│Sle│        │CUp│PgD│Up │PgU│CDe│CBs│
       * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
-      * │RPG│   │MLf│MDn│MRg│MWD│        │Hom│Lft│Dwn│Rgt│End│Ins│
+      * │V+ │F11│ F6│ F5│ F4│Boo│        │Hom│Lft│Dwn│Rgt│End│Ins│
       * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
-      * │   │   │M6 │M5 │M2 │M4 │        │CDn│CLf│CBs│CRt│Ent│PSn│
+      * │V- │F12│ F3│ F2│ F1│Res│        │CDn│CLf│CBs│CRt│Ent│PSn│
+      * └───┴───┴───┴───┴───┴───┘        └───┴───┴───┴───┴───┴───┘
+      *               ┌───┐                   ┌───┐
+      *               │   ├───┐           ┌───┤   │
+      *               └───┤   ├───┐   ┌───┤   ├───┘
+      *                   └───┤   │   │   ├───┘
+      *                       └───┘   └───┘
+      */
+     [_RAISE] = LAYOUT_split_3x6_3(
+         KC_AUDIO_MUTE,     KC_F10, KC_F9, KC_F8, KC_F7, KC_SYSTEM_SLEEP,    C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
+         KC_AUDIO_VOL_UP,   KC_F11, KC_F6, KC_F5, KC_F4, QK_BOOTLOADER,      KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
+         KC_AUDIO_VOL_DOWN, KC_F12, KC_F3, KC_F2, KC_F1, QK_REBOOT,          C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
+                                         _______, _______,  _______,    _______, _______,  _______
+     ),
+     /*
+      * ┌───┬───┬───┬───┬───┬───┐        ┌───┬───┬───┬───┬───┬───┐
+      * │GAM│   │M3 │Mup│M1 │MWU│        │ ' │Ent│PM1│ ^ │RM1│MPv│
+      * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
+      * │RPG│   │MLf│MDn│MRg│MWD│        │ / │Tab│Esc│Tab│RST│MPy│
+      * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
+      * │   │   │M6 │M5 │M2 │M4 │        │ ~ │Del│PM2│CTb│RM2│MNx│
       * └───┴───┴───┴───┴───┴───┘        └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │MA2├───┐           ┌───┤   │
@@ -92,33 +112,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                   └───┤MA0│   │   ├───┘
       *                       └───┘   └───┘
       */
-    [_RAISE] = LAYOUT_split_3x6_3(
-        TO(_QWERTY), _______, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,              C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
-        TO(_RPGM),   _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,            KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
-        _______,     _______, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,               C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
-                                        KC_MS_ACCEL2, KC_MS_ACCEL1, KC_MS_ACCEL0,    _______, _______,  _______
-    ),
+     [_ADJUST] = LAYOUT_split_3x6_3(
+         TO(_QWERTY), _______, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,              KC_GRV,    KC_ENT,  DM_PLY1, S(KC_6),    DM_REC1, KC_MPRV,
+         TO(_RPGM),   _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,            S(KC_BSLS), KC_TAB,  KC_ESC,  KC_TAB,    DM_RSTP, KC_MPLY,
+         _______,     _______, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,               S(KC_GRV),  KC_DEL,  DM_PLY2, C(KC_TAB), DM_REC2, KC_MNXT,
+                                         KC_MS_ACCEL2, KC_MS_ACCEL1, KC_MS_ACCEL0,    _______, _______,  _______
+     ),
      /*
-      *  ┌───┬───┬───┬───┬───┬───┐        ┌───┬───┬───┬───┬───┬───┐
-      *  │MPv│RM1│ ^ │PM1│Ent│ ` │        │Sle│F7 │F8 │F9 │F10│Mut│
-      *  ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
-      *  │MPy│RST│Tab│Esc│Tab│ | │        │Boo│F4 │F5 │F6 │F11│V+ │
-      *  ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
-      *  │MNx│RM2│CTb│PM2│Del│ ~ │        │Res│F1 │F2 │F3 │F12│V- │
-      *  └───┴───┴───┴───┴───┴───┘        └───┴───┴───┴───┴───┴───┘
-      *               ┌───┐                   ┌───┐
-      *               │   ├───┐           ┌───┤   │
-      *               └───┤   ├───┐   ┌───┤   ├───┘
-      *                   └───┤   │   │   ├───┘
-      *                       └───┘   └───┘
-      */
-    [_ADJUST] = LAYOUT_split_3x6_3(
-        KC_MPRV, DM_REC1, S(KC_6),   DM_PLY1, KC_ENT, KC_GRV,           KC_SYSTEM_SLEEP, KC_F7, KC_F8, KC_F9, KC_F10, KC_AUDIO_MUTE,
-        KC_MPLY, DM_RSTP, KC_TAB,    KC_ESC,  KC_TAB, S(KC_BSLS),       QK_BOOTLOADER,   KC_F4, KC_F5, KC_F6, KC_F11, KC_AUDIO_VOL_UP,
-        KC_MNXT, DM_REC2, C(KC_TAB), DM_PLY2, KC_DEL, S(KC_GRV),        QK_REBOOT,       KC_F1, KC_F2, KC_F3, KC_F12, KC_AUDIO_VOL_DOWN,
-                                        KC_LGUI, KC_LCTL, KC_SPC,      _______,  _______, _______
-    ),
-    /*
       * GAMING LAYER (QWERTY for WASD)
       * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
       * │Tab│Bsp│ Q │ W │ E │ R │       │ T │ Y │ U │ I │ O │ P │
