@@ -100,23 +100,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐        ┌───┬───┬───┬───┬───┬───┐
-      * │GAM│   │M3 │Mup│M1 │MWU│        │ ' │Ent│PM1│ ^ │RM1│MPv│
+      * │GAM│MA2│M3 │Mup│M1 │MWU│        │ ' │Ent│PM1│ ^ │RM1│MPv│
       * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
-      * │RPG│   │MLf│MDn│MRg│MWD│        │ / │Tab│Esc│Tab│RST│MPy│
+      * │RPG│MA1│MLf│MDn│MRg│MWD│        │ / │Tab│Esc│Tab│RST│MPy│
       * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
-      * │   │   │M6 │M5 │M2 │M4 │        │ ~ │Del│PM2│CTb│RM2│MNx│
+      * │   │MA0│M6 │M5 │M2 │M4 │        │ ~ │Del│PM2│CTb│RM2│MNx│
       * └───┴───┴───┴───┴───┴───┘        └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
-      *               │MA2├───┐           ┌───┤   │
-      *               └───┤MA1├───┐   ┌───┤   ├───┘
-      *                   └───┤MA0│   │   ├───┘
+      *               │   ├───┐           ┌───┤   │
+      *               └───┤   ├───┐   ┌───┤   ├───┘
+      *                   └───┤   │   │   ├───┘
       *                       └───┘   └───┘
       */
      [_ADJUST] = LAYOUT_split_3x6_3(
-         TO(_QWERTY), _______, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,              KC_GRV,    KC_ENT,  DM_PLY1, S(KC_6),    DM_REC1, KC_MPRV,
-         TO(_RPGM),   _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,            S(KC_BSLS), KC_TAB,  KC_ESC,  KC_TAB,    DM_RSTP, KC_MPLY,
-         _______,     _______, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,               S(KC_GRV),  KC_DEL,  DM_PLY2, C(KC_TAB), DM_REC2, KC_MNXT,
-                                         KC_MS_ACCEL2, KC_MS_ACCEL1, KC_MS_ACCEL0,    _______, _______,  _______
+         TO(_QWERTY), KC_MS_ACCEL2, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,              KC_GRV,    KC_ENT,  DM_PLY1, S(KC_6),    DM_REC1, KC_MPRV,
+         TO(_RPGM),   KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,            S(KC_BSLS), KC_TAB,  KC_ESC,  KC_TAB,    DM_RSTP, KC_MPLY,
+         _______,     KC_MS_ACCEL0, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,               S(KC_GRV),  KC_DEL,  DM_PLY2, C(KC_TAB), DM_REC2, KC_MNXT,
+                                         _______, _______,  _______,    _______, _______,  _______
      ),
      /*
       * GAMING LAYER (QWERTY for WASD)
