@@ -80,11 +80,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
      /*
       * ┌───┬───┬───┬───┬───┬───┐        ┌───┬───┬───┬───┬───┬───┐
-      * │Mut│F10│ F9│ F8│ F7│Sle│        │CUp│PgD│Up │PgU│CDe│CBs│
+      * │Mut│F10│ F3│ F2│ F1│Sle│        │CUp│PgD│Up │PgU│CDe│CBs│
       * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
       * │V+ │F11│ F6│ F5│ F4│Boo│        │Hom│Lft│Dwn│Rgt│End│Ins│
       * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
-      * │V- │F12│ F3│ F2│ F1│Res│        │CDn│CLf│CBs│CRt│Ent│PSn│
+      * │V- │F12│ F9│ F8│ F7│Res│        │CDn│CLf│CBs│CRt│Ent│PSn│
       * └───┴───┴───┴───┴───┴───┘        └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       *                       └───┘   └───┘
       */
      [_RAISE] = LAYOUT_split_3x6_3(
-         KC_AUDIO_MUTE,     KC_F10, KC_F9, KC_F8, KC_F7, KC_SYSTEM_SLEEP,    C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
+         KC_AUDIO_MUTE,     KC_F10, KC_F3, KC_F2, KC_F1, KC_SYSTEM_SLEEP,    C(KC_UP),   KC_PGDN,    KC_UP,      KC_PGUP,     C(KC_DEL), C(KC_BSPC),
          KC_AUDIO_VOL_UP,   KC_F11, KC_F6, KC_F5, KC_F4, QK_BOOTLOADER,      KC_HOME,    KC_LEFT,    KC_DOWN,    KC_RIGHT,    KC_END,    KC_INSERT,
-         KC_AUDIO_VOL_DOWN, KC_F12, KC_F3, KC_F2, KC_F1, QK_REBOOT,          C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
+         KC_AUDIO_VOL_DOWN, KC_F12, KC_F9, KC_F8, KC_F7, QK_REBOOT,          C(KC_DOWN), C(KC_LEFT), C(KC_BSPC), C(KC_RIGHT), KC_ENT,    KC_PRINT_SCREEN,
                                          _______, _______,  _______,    _______, _______,  _______
      ),
      /*
