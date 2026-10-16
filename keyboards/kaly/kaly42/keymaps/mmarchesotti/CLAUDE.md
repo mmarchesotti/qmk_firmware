@@ -1,8 +1,25 @@
 # Kaly42 — mmarchesotti keymap
 
-Notes for building and flashing this keymap on Windows.
+Notes for building and flashing this keymap. Linux is the usual environment here; the
+Windows sections below exist because the toolchain needs extra coaxing there.
 
-## Building
+## Building (Linux)
+
+Nothing special — after `qmk setup` has installed the dependencies once:
+
+    make kaly/kaly42:mmarchesotti
+    make kaly/kaly42:mmarchesotti:flash
+
+For flashing without root, install the udev rules this repo ships, which already tag
+the STM32 DFU device (`0483:df11`) with `uaccess`:
+
+    sudo cp util/udev/50-qmk.rules /etc/udev/rules.d/
+    sudo udevadm control --reload-rules && sudo udevadm trigger
+
+The bootmagic keys and the benign `firmware is corrupt` message described under
+*Flashing* apply the same way.
+
+## Building (Windows)
 
 The `qmk` CLI and the ARM toolchain are not on the default Windows PATH, so a bare
 `make kaly/kaly42:mmarchesotti` fails with `qmk: command not found` — QMK's Makefile
@@ -23,7 +40,7 @@ it if the build reaches `[OK]`.
 The ARM toolchain needs the git submodules initialized (`lib/chibios`,
 `lib/chibios-contrib`) — `qmk setup` or `make git-submodule` handles that.
 
-## Flashing
+## Flashing (both platforms)
 
 Split keyboard on a blackpill_f401 with the `stm32-dfu` bootloader. Each half has its
 own controller and must be flashed separately with the same firmware.
