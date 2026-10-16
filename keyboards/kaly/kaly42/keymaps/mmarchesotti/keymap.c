@@ -9,12 +9,16 @@ enum kaly_layers {
   _RAISE,
   _ADJUST,
   _QWERTY,
-  _RPGM
+  _RPGM,
+  _MAPLESTORY1,
+  _MAPLESTORY2
 };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
+#define MAPLE1 TO(_MAPLESTORY1)
+#define MAPLE2 MO(_MAPLESTORY2)
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch(combo_index) {
@@ -36,6 +40,30 @@ const uint16_t PROGMEM right_inner_thumb_combo[] = {LOWER, RAISE, COMBO_END};
 combo_t key_combos[] = {
     [ADJUST_COMBO] = COMBO_ACTION(right_inner_thumb_combo),
 };
+
+enum custom_keycodes {
+  MS_QM = SAFE_RANGE,
+  MS_ENH,
+  MS_SELL
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!record->event.pressed) {
+        return true;
+    }
+    switch (keycode) {
+        case MS_QM:
+            SEND_STRING("@qm");
+            return false;
+        case MS_ENH:
+            SEND_STRING("@enhance");
+            return false;
+        case MS_SELL:
+            SEND_STRING("@sell equip");
+            return false;
+    }
+    return true;
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
@@ -104,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
       * │RPG│MA1│MLf│MDn│MRg│MWD│        │ / │Tab│Esc│Tab│RST│MPy│
       * ├───┼───┼───┼───┼───┼───┤        ├───┼───┼───┼───┼───┼───┤
-      * │   │MA0│M6 │M5 │M2 │M4 │        │ ~ │Del│PM2│CTb│RM2│MNx│
+      * │MPL│MA0│M6 │M5 │M2 │M4 │        │ ~ │Del│PM2│CTb│RM2│MNx│
       * └───┴───┴───┴───┴───┴───┘        └───┴───┴───┴───┴───┴───┘
       *               ┌───┐                   ┌───┐
       *               │   ├───┐           ┌───┤   │
@@ -115,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      [_ADJUST] = LAYOUT_split_3x6_3(
          TO(_QWERTY), KC_MS_ACCEL2, KC_MS_BTN3, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_UP,              KC_GRV,    KC_ENT,  DM_PLY1, S(KC_6),    DM_REC1, KC_MPRV,
          TO(_RPGM),   KC_MS_ACCEL1, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_WH_DOWN,            S(KC_BSLS), KC_TAB,  KC_ESC,  KC_TAB,    DM_RSTP, KC_MPLY,
-         _______,     KC_MS_ACCEL0, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,               S(KC_GRV),  KC_DEL,  DM_PLY2, C(KC_TAB), DM_REC2, KC_MNXT,
+         MAPLE1,      KC_MS_ACCEL0, KC_MS_BTN6, KC_MS_BTN5, KC_MS_BTN2,  KC_MS_BTN4,               S(KC_GRV),  KC_DEL,  DM_PLY2, C(KC_TAB), DM_REC2, KC_MNXT,
                                          _______, _______,  _______,    _______, _______,  _______
      ),
      /*
@@ -159,5 +187,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_W,     KC_LEFT, KC_DOWN, KC_RIGHT,    KC_F,              KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SLSH,
         KC_LSFT, KC_S,     KC_Z,    KC_X,    KC_C,        KC_V,              KC_B,    KC_N,    KC_M,    KC_A,    KC_D,    KC_ENT,
                                            KC_LALT, KC_LCTL, KC_SPC,       _______, _______, TO(_BASE)
+    ),
+     /*
+      * MAPLESTORY LAYER
+      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
+      * │ N │ J │ O │Up │Ins│Hom│       │ A │F1 │F2 │F3 │F4 │F5 │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │Esc│Sft│Lft│Dwn│Rgt│ Y │       │ S │ 1 │ 2 │ 3 │ 4 │ 5 │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │EXT│ X │ U │ I │ K │ C │       │ D │ Q │ W │ E │ R │ T │
+      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      *               ┌───┐                   ┌───┐
+      *               │ Z ├───┐           ┌───┤ML2│
+      *               └───┤Ent├───┐   ┌───┤Alt├───┘
+      *                   └───┤Spc│   │Ctl├───┘
+      *                       └───┘   └───┘
+      */
+    [_MAPLESTORY1] = LAYOUT_split_3x6_3(
+        KC_N,    KC_J,    KC_O,    KC_UP,   KC_INS,   KC_HOME,           KC_A,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
+        KC_ESC,  KC_LSFT, KC_LEFT, KC_DOWN, KC_RIGHT, KC_Y,              KC_S,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+        TO(_BASE), KC_X,  KC_U,    KC_I,    KC_K,     KC_C,              KC_D,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+                                           KC_Z, KC_ENT, KC_SPC,       KC_LCTL, KC_LALT, MAPLE2
+    ),
+    /*
+      * MAPLESTORY EXTRA LAYER (held from the MapleStory layer)
+      * ┌───┬───┬───┬───┬───┬───┐       ┌───┬───┬───┬───┬───┬───┐
+      * │   │   │   │   │   │@qm│       │F6 │F7 │F8 │F9 │F10│F11│
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │   │   │   │   │@enh       │F12│ 6 │ 7 │ 8 │ 9 │ 0 │
+      * ├───┼───┼───┼───┼───┼───┤       ├───┼───┼───┼───┼───┼───┤
+      * │   │   │   │   │   │@sel       │   │   │   │   │   │   │
+      * └───┴───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┴───┘
+      *               ┌───┐                   ┌───┐
+      *               │   ├───┐           ┌───┤   │
+      *               └───┤   ├───┐   ┌───┤   ├───┘
+      *                   └───┤   │   │   ├───┘
+      *                       └───┘   └───┘
+      */
+    [_MAPLESTORY2] = LAYOUT_split_3x6_3(
+        _______, _______, _______, _______, _______, MS_QM,              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+        _______, _______, _______, _______, _______, MS_ENH,             KC_F12,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+        _______, _______, _______, _______, _______, MS_SELL,            _______, _______, _______, _______, _______, _______,
+                                         _______, _______,  _______,    _______, _______,  _______
     ),
 };
