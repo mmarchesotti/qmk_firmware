@@ -66,6 +66,10 @@ request`, after which `dfu-util -l` lists no devices.
 
 ## Keymap notes
 
-`TAPPING_TERM` is lowered to 125ms in `config.h` for `RALT_T(KC_SPC)`, the only
-tap-hold key in the keymap. The MapleStory layers use `SEND_STRING` chat macros, which
-emit US-ANSI, matching the `S(KC_2)`-style symbols on `_LOWER`.
+`RALT_T(KC_SPC)` is the only tap-hold key in the keymap, and it deliberately runs on
+QMK's default 200ms `TAPPING_TERM`. A shorter term was tried and reverted: it did make
+AltGr quicker, but the muscle memory for 200ms was already there. There is no keymap
+`config.h` as a result.
+
+The MapleStory layers use `SEND_STRING` chat macros, which emit US-ANSI, matching the
+`S(KC_2)`-style symbols on `_LOWER`.
